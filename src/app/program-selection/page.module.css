@@ -1,0 +1,194 @@
+.container {
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.card {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 30px;
+  background: linear-gradient(135deg, #fbbf24, #dc2626);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.optionCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.optionTitle {
+  font-size: 1.8rem;
+  color: #fbbf24;
+}
+
+.optionDescription {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.taskTypes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.taskType {
+  display: flex;
+  flex-direction: column;
+}
+
+.taskTypeCard {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 20px;
+  border: 2px solid;
+  transition: all 0.3s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.taskTypeCard.red {
+  border-color: #dc2626;
+}
+
+.taskTypeCard.blue {
+  border-color: #3b82f6;
+}
+
+.taskTypeCard.white {
+  border-color: #f8fafc;
+}
+
+.taskTypeCard h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.taskDescription {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.taskCount {
+  text-align: center;
+  color: #fbbf24;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.taskButton {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+}
+
+.taskTypeCard.red .taskButton {
+  background: #dc2626;
+  color: white;
+}
+
+.taskTypeCard.blue .taskButton {
+  background: #3b82f6;
+  color: white;
+}
+
+.taskTypeCard.white .taskButton {
+  background: #f8fafc;
+  color: #1a1a2e;
+}
+
+.taskButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.taskButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.rewardButton {
+  padding: 16px 32px;
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.rewardButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.4);
+}
+
+.rewardButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error {
+  padding: 12px;
+  background: rgba(220, 38, 38, 0.2);
+  border: 1px solid rgba(220, 38, 38, 0.5);
+  border-radius: 8px;
+  color: #ff6b6b;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 40px;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .taskTypes {
+    grid-template-columns: 1fr;
+  }
+
+  .optionCard {
+    padding: 20px;
+  }
+}
+
