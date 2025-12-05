@@ -21,6 +21,11 @@ export default function Home() {
       // Check member status and redirect accordingly
       membersAPI.getMemberInfo()
         .then((memberInfo) => {
+          // If user is admin, redirect to members page
+          if (memberInfo.IsAdmin) {
+            router.push('/members');
+            return;
+          }
           redirectBasedOnStatus(memberInfo.Status, memberInfo.ResultId);
         })
         .catch(() => {
@@ -64,6 +69,12 @@ export default function Home() {
       Cookies.set('token', response.access_token, { expires: 1 }); // 1 day
       Cookies.set('member', JSON.stringify(response.member), { expires: 1 });
 
+      // If user is admin, redirect to members page
+      if (response.member.IsAdmin) {
+        router.push('/members');
+        return;
+      }
+      
       // Redirect based on status
       redirectBasedOnStatus(response.member.Status, response.member.ResultId);
     } catch (err: any) {

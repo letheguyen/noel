@@ -37,6 +37,12 @@ export default function ProgramSelection() {
 
       setMember(memberInfo);
 
+      // If user is admin, redirect to members page
+      if (memberInfo.IsAdmin) {
+        router.push('/members');
+        return;
+      }
+
       // If member already has ResultId, redirect to result page (cannot spin again)
       if (memberInfo.ResultId) {
         router.push('/result');
@@ -138,40 +144,7 @@ export default function ProgramSelection() {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center', 
-          flexDirection: 'column-reverse',
-        }}>
-          <h1 className={styles.title}>Chọn Chương Trình</h1>
-
-          {member?.IsAdmin && (
-            <button
-              onClick={() => router.push('/members')}
-              style={{
-                background: 'rgba(59, 130, 246, 0.3)',
-                border: '1px solid rgba(59, 130, 246, 0.5)',
-                color: '#60a5fa',
-                padding: '10px 20px',
-                borderRadius: '10px',
-                cursor: 'pointer',
-                fontSize: '1rem',
-                transition: 'all 0.3s',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(59, 130, 246, 0.5)';
-                e.currentTarget.style.transform = 'translateY(-2px)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'rgba(59, 130, 246, 0.3)';
-                e.currentTarget.style.transform = 'translateY(0)';
-              }}
-            >
-              👥 Quản lý Members
-            </button>
-          )}
-        </div>
+        <h1 className={styles.title}>Chọn Chương Trình</h1>
 
         {error && <div className={styles.error}>{error}</div>}
 

@@ -29,6 +29,12 @@ export default function ResultPage() {
       const memberInfo = await membersAPI.getMemberInfo();
       setMember(memberInfo);
 
+      // If user is admin, redirect to members page
+      if (memberInfo.IsAdmin) {
+        router.push('/members');
+        return;
+      }
+
       // Check if member has result
       if (!memberInfo.ResultId) {
         // If no result and status is PENDING or CHOSEN, redirect to program selection

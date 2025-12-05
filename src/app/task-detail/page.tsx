@@ -30,6 +30,12 @@ export default function TaskDetail() {
       const memberInfo = await membersAPI.getMemberInfo();
       setMember(memberInfo);
 
+      // If user is admin, redirect to members page
+      if (memberInfo.IsAdmin) {
+        router.push('/members');
+        return;
+      }
+
       // If member already has ResultId, redirect to result page
       if (memberInfo.ResultId) {
         router.push('/result');

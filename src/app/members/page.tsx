@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { membersAPI, adminAPI, tasksAPI } from '@/lib/api-client';
 import { Member, MemberStatus, Task } from '@/lib/types';
+import { logout } from '@/lib/auth-utils';
 import styles from './page.module.css';
 
 interface MemberWithTask extends Member {
@@ -166,10 +167,10 @@ export default function MembersManagement() {
         <div className={styles.header}>
           <h1 className={styles.title}>👥 Quản Lý Members</h1>
           <button
-            onClick={() => router.push('/program-selection')}
+            onClick={logout}
             className={styles.backButton}
           >
-            ← Quay lại
+            🚪 Đăng xuất
           </button>
         </div>
 
