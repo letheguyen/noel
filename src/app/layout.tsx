@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import LogoutButton from '@/components/LogoutButton';
 
 export const metadata: Metadata = {
   title: '🎄 Noel - Christmas Game',
@@ -14,7 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi">
-      <body>{children}</body>
+      <body>
+        <LogoutButton />
+        {children}
+      </body>
     </html>
   );
 }
