@@ -1,18 +1,15 @@
 .logoutButton {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 10px 20px;
+  padding: 12px 0;
   background: rgba(220, 38, 38, 0.2);
   border: 1px solid rgba(220, 38, 38, 0.5);
   color: #ff6b6b;
-  border-radius: 10px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 500;
   transition: all 0.3s;
   z-index: 1000;
   backdrop-filter: blur(10px);
+  width: 100%;
 }
 
 .logoutButton:hover {

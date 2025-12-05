@@ -9,7 +9,6 @@ export default function LogoutButton() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Kiểm tra xem có token không
     const token = Cookies.get('token');
     setIsLoggedIn(!!token);
   }, []);

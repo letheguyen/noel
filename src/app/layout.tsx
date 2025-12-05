@@ -17,7 +17,9 @@ export default function RootLayout({
     <html lang="vi">
       <body>
         <LogoutButton />
-        {children}
+        <div style={{ paddingTop: '60px' }}>
+          {children}
+        </div>
       </body>
     </html>
   );
