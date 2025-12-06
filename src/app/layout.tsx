@@ -19,10 +19,10 @@ export default function RootLayout({ children }: { children: React.ReactNode; })
       snow.style.setProperty("--moveX", -20 + Math.random() * 40 + "vw");
 
       document.body.appendChild(snow);
-      setTimeout(() => snow.remove(), 9000);
+      setTimeout(() => snow.remove(), 60000);
     };
 
-    const interval = setInterval(createSnow, 250);
+    const interval = setInterval(createSnow, 14000);
     return () => clearInterval(interval);
   }, []);
 
