@@ -1,26 +1,20 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-import { logout } from '@/lib/auth-utils';
-import styles from './LogoutButton.module.css';
+import Cookies from "js-cookie";
+import { logout } from "@/lib/auth-utils";
+import styles from "./LogoutButton.module.css";
 
 export default function LogoutButton() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const token = Cookies.get("token");
+  const member = Cookies.get("member");
 
-  useEffect(() => {
-    const token = Cookies.get('token');
-    setIsLoggedIn(!!token);
-  }, []);
-
-  if (!isLoggedIn) {
-    return null;
+  if (token && member) {
+    const { Name, UUID } = JSON.parse(member);
+    return (
+      <div className={styles.logoutButton}>
+        <p className={styles.useName}>{Name} ({UUID})</p>
+        <p className={styles.logoutBtn} onClick={logout}>Đăng xuất</p>
+      </div>
+    );
   }
-
-  return (
-    <button onClick={logout} className={styles.logoutButton}>
-      🚪 Đăng xuất
-    </button>
-  );
 }
-

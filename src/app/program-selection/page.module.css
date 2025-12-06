@@ -1,18 +1,17 @@
 .container {
   min-height: 100vh;
-  padding: 20px;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 0 12px;
 }
 
 .card {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 20px auto;
 }
 
 .title {
   font-size: 2.5rem;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 8px;
   background: linear-gradient(135deg, #fbbf24, #dc2626);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -26,8 +25,7 @@
 }
 
 .optionCard {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(2px);
   border-radius: 20px;
   padding: 30px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
@@ -60,7 +58,7 @@
 .taskTypeCard {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
-  padding: 20px;
+  padding: 10px 20px;
   border: 2px solid;
   transition: all 0.3s;
   height: 100%;
@@ -83,7 +81,7 @@
 .taskTypeCard h3 {
   font-size: 1.5rem;
   margin-bottom: 15px;
-  text-align: center;
+  text-align: left;
 }
 
 .taskDescription {

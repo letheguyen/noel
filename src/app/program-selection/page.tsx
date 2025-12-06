@@ -130,6 +130,7 @@ export default function ProgramSelection() {
     } catch (err: any) {
       setError(err.response?.data?.message || 'Lỗi khi chọn task');
       setLoading(false);
+      loadData();
     }
   };
 
@@ -145,40 +146,37 @@ export default function ProgramSelection() {
     <div className={styles.container}>
       <div className={styles.card}>
         <h1 className={styles.title}>Chọn Chương Trình</h1>
-
         {error && <div className={styles.error}>{error}</div>}
 
         <div className={styles.options}>
           <div className={styles.optionCard}>
             <h2 className={styles.optionTitle}>Thực hiện thử thách</h2>
             <p className={styles.optionDescription}>
-              Chọn một loại thẻ và hoàn thành thử thách để nhận phần thưởng
+              Chọn một loại thẻ và hoàn thành thử thách để nhận phần thưởng cùng đặc quyền của thẻ 🎁
             </p>
 
             <div className={styles.taskTypes}>
               <div className={styles.taskType}>
                 <div className={`${styles.taskTypeCard} ${styles.red}`}>
-                  <h3>🔴 RED</h3>
+                  <h3>🔴 RED {` (x${tasks[CardType.RED] || 0})`}</h3>
                   <p className={styles.taskDescription}>
-                    - Có thể mở/xem phần thưởng của mình<br />
-                    - Có thể trao đổi quà của mình với người khác
+                    Đặc quyền: Có thể mở xem quà của mình mà không cần chờ tới khi chương trình kết thúc, có thể đổi quà của mình với bất kỳ ai ngay cả khi đã mở xem quà. 
                   </p>
                   <button
                     onClick={() => handleChooseTaskType(CardType.RED)}
                     disabled={loading || (tasks[CardType.RED] || 0) === 0}
                     className={styles.taskButton}
                   >
-                    Chọn RED {` (${tasks[CardType.RED] || 0})`}
+                    Chọn RED
                   </button>
                 </div>
               </div>
 
               <div className={styles.taskType}>
                 <div className={`${styles.taskTypeCard} ${styles.blue}`}>
-                  <h3>🔵 BLUE</h3>
+                  <h3>🔵 BLUE {` (x${tasks[CardType.BLUE] || 0})`}</h3>
                   <p className={styles.taskDescription}>
-                    - Có thể yêu cầu người khác mở quà của họ<br />
-                    - Có thể trao đổi quà của mình với quà của họ
+                    Đặc quyền: Có thể yêu cầu người khác mở quà và có thể đổi quà của mình với quà của người đó.
                   </p>
                
                   <button
@@ -186,24 +184,23 @@ export default function ProgramSelection() {
                     disabled={loading || (tasks[CardType.BLUE] || 0) === 0}
                     className={styles.taskButton}
                   >
-                    Chọn BLUE {` (${tasks[CardType.BLUE] || 0})`}
+                    Chọn BLUE 
                   </button>
                 </div>
               </div>
 
               <div className={styles.taskType}>
                 <div className={`${styles.taskTypeCard} ${styles.white}`}>
-                  <h3>⚪ WHITE</h3>
+                  <h3>⚪ WHITE{` (x${tasks[CardType.WHITE] || 0})`}</h3>
                   <p className={styles.taskDescription}>
-                    - Có thể chặn 1 tấn công RED  <br />
-                    - Có thể chặn 1 tấn công BLUE 
+                    Đặc quyền: Có thể chặn được 1 lượt tấn công của RED hoặc BLUE.
                   </p>
                   <button
                     onClick={() => handleChooseTaskType(CardType.WHITE)}
                     disabled={loading || (tasks[CardType.WHITE] || 0) === 0}
                     className={styles.taskButton}
                   >
-                    Chọn WHITE {` (${tasks[CardType.WHITE] || 0})`}
+                    Chọn WHITE 
                   </button>
                 </div>
               </div>

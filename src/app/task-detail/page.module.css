@@ -1,27 +1,19 @@
 .container {
-  min-height: 100vh;
-  padding: 20px;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 0px 20px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 40px;
   width: 100%;
   max-width: 600px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .title {
   font-size: 2.5rem;
   text-align: center;
-  margin-bottom: 30px;
+  margin: 12px 0;
   background: linear-gradient(135deg, #fbbf24, #dc2626);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -76,7 +68,6 @@
 
 .taskDescription p {
   color: rgba(255, 255, 255, 0.9);
-  line-height: 1.8;
   font-size: 1.1rem;
 }
 
@@ -150,10 +141,6 @@
 }
 
 @media (max-width: 768px) {
-  .card {
-    padding: 30px 20px;
-  }
-
   .title {
     font-size: 2rem;
   }

@@ -107,7 +107,7 @@ export default function TaskDetail() {
   if (!task && member?.TaskId) {
     return (
       <div className={styles.container}>
-        <div className={styles.error}>Không tìm thấy task</div>
+        <div className={styles.error}>Không tìm thấy nhiệm vụ</div>
       </div>
     );
   }
@@ -115,7 +115,7 @@ export default function TaskDetail() {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h1 className={styles.title}>Chi Tiết Task</h1>
+        <h1 className={styles.title}>Chi Tiết Nhiệm Vụ</h1>
 
         {error && <div className={styles.error}>{error}</div>}
 
@@ -127,22 +127,9 @@ export default function TaskDetail() {
               </span>
             </div>
             <div className={styles.taskDescription}>
-              <h3>Mô tả:</h3>
+              <h3>Nhiệm vụ:</h3>
               <p>{task.descriptions}</p>
             </div>
-          </div>
-        )}
-
-        {member && (
-          <div className={styles.memberInfo}>
-            <p className={styles.status}>
-              Trạng thái: <strong>{member.Status}</strong>
-            </p>
-            {member.CardType && (
-              <p className={styles.cardType}>
-                Loại thẻ: <strong>{member.CardType}</strong>
-              </p>
-            )}
           </div>
         )}
 
