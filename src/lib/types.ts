@@ -27,6 +27,7 @@ export interface Member {
   IsAdmin: boolean;
   TaskId?: string;
   ResultId?: string;
+  CardStatus?: boolean;
 }
 
 export interface Task {

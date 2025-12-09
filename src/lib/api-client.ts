@@ -24,6 +24,10 @@ export const membersAPI = {
     const response = await api.post('/members/update-status', { memberId, status });
     return response.data;
   },
+  updateCardStatus: async (memberId: string, cardStatus: boolean) => {
+    const response = await api.post('/members/update-card-status', { memberId, cardStatus });
+    return response.data;
+  },
 };
 
 export const tasksAPI = {
@@ -59,6 +63,17 @@ export const resultsAPI = {
 export const adminAPI = {
   markTaskCompleted: async (memberId: string) => {
     const response = await api.post('/admin/mark-task-completed', { memberId });
+    return response.data;
+  },
+};
+
+export const systemAPI = {
+  getSystemStatus: async (): Promise<{ status: 'on' | 'off' }> => {
+    const response = await api.get('/system/status');
+    return response.data;
+  },
+  updateSystemStatus: async (status: 'on' | 'off'): Promise<{ status: 'on' | 'off', message: string }> => {
+    const response = await api.post('/system/status', { status });
     return response.data;
   },
 };

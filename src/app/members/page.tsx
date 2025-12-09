@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
-import { membersAPI, adminAPI, tasksAPI } from '@/lib/api-client';
+import { membersAPI, adminAPI, tasksAPI, systemAPI } from '@/lib/api-client';
 import { Member, MemberStatus, Task } from '@/lib/types';
 import { logout } from '@/lib/auth-utils';
 import styles from './page.module.css';
@@ -17,6 +17,9 @@ export default function MembersManagement() {
   const [members, setMembers] = useState<MemberWithTask[]>([]);
   const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState<string | null>(null);
+  const [updatingCardStatus, setUpdatingCardStatus] = useState<string | null>(null);
+  const [systemStatus, setSystemStatus] = useState<'on' | 'off'>('off');
+  const [updatingSystemStatus, setUpdatingSystemStatus] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const router = useRouter();
@@ -33,13 +36,15 @@ export default function MembersManagement() {
 
   const loadData = async () => {
     try {
-      const [memberInfo, allMembers, allTasks] = await Promise.all([
+      const [memberInfo, allMembers, allTasks, systemStatusData] = await Promise.all([
         membersAPI.getMemberInfo(),
         membersAPI.getAllMembers(),
         tasksAPI.getAllTasks(),
+        systemAPI.getSystemStatus(),
       ]);
 
       setMember(memberInfo);
+      setSystemStatus(systemStatusData.status);
 
       // Check if user is admin
       if (!memberInfo.IsAdmin) {
@@ -105,6 +110,60 @@ export default function MembersManagement() {
     }
   };
 
+  const handleUpdateCardStatus = async (memberId: string, currentStatus: boolean) => {
+    try {
+      setUpdatingCardStatus(memberId);
+      setError('');
+      setSuccess('');
+
+      await membersAPI.updateCardStatus(memberId, !currentStatus);
+      
+      // Reload members list
+      const allMembers = await membersAPI.getAllMembers();
+      const allTasks = await tasksAPI.getAllTasks();
+
+      // Create a map of task ID to task details
+      const taskMap = new Map<string, Task>();
+      allTasks.forEach(task => {
+        taskMap.set(task.id, task);
+      });
+
+      // Map members with their task details
+      const membersWithTasks = allMembers.map((m) => {
+        const taskDetails = m.TaskId ? taskMap.get(m.TaskId) : undefined;
+        return { ...m, taskDetails };
+      });
+
+      setMembers(membersWithTasks);
+      
+      setSuccess(`Đã cập nhật trạng thái thẻ thành công`);
+      setTimeout(() => setSuccess(''), 3000);
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Lỗi khi cập nhật trạng thái thẻ');
+    } finally {
+      setUpdatingCardStatus(null);
+    }
+  };
+
+  const handleToggleSystemStatus = async () => {
+    try {
+      setUpdatingSystemStatus(true);
+      setError('');
+      setSuccess('');
+
+      const newStatus = systemStatus === 'on' ? 'off' : 'on';
+      await systemAPI.updateSystemStatus(newStatus);
+      setSystemStatus(newStatus);
+      
+      setSuccess(`Đã ${newStatus === 'on' ? 'bật' : 'tắt'} hệ thống thành công`);
+      setTimeout(() => setSuccess(''), 3000);
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Lỗi khi cập nhật trạng thái hệ thống');
+    } finally {
+      setUpdatingSystemStatus(false);
+    }
+  };
+
   const getStatusColor = (member: MemberWithTask): string => {
     // If member has ResultId, show as rewarded regardless of status
     if (member.ResultId) {
@@ -166,12 +225,29 @@ export default function MembersManagement() {
       <div className={styles.card}>
         <div className={styles.header}>
           <h1 className={styles.title}>👥 Quản Lý Members</h1>
-          <button
-            onClick={logout}
-            className={styles.backButton}
-          >
-            🚪 Đăng xuất
-          </button>
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+            <button
+              onClick={handleToggleSystemStatus}
+              disabled={updatingSystemStatus}
+              className={systemStatus === 'on' ? styles.systemOnButton : styles.systemOffButton}
+              style={{
+                padding: '8px 16px',
+                borderRadius: '8px',
+                border: 'none',
+                cursor: updatingSystemStatus ? 'not-allowed' : 'pointer',
+                fontWeight: 'bold',
+                fontSize: '14px',
+              }}
+            >
+              {updatingSystemStatus ? 'Đang cập nhật...' : systemStatus === 'on' ? '🟢 Hệ thống: BẬT' : '🔴 Hệ thống: TẮT'}
+            </button>
+            <button
+              onClick={logout}
+              className={styles.backButton}
+            >
+              🚪 Đăng xuất
+            </button>
+          </div>
         </div>
 
         {error && <div className={styles.error}>{error}</div>}
@@ -204,6 +280,7 @@ export default function MembersManagement() {
                 <th>Tên</th>
                 <th>Trạng thái</th>
                 <th>Loại thẻ</th>
+                <th>Trạng thái thẻ</th>
                 <th>Thông tin Task</th>
                 <th>Hành động</th>
               </tr>
@@ -219,6 +296,28 @@ export default function MembersManagement() {
                     </span>
                   </td>
                   <td>{m.CardType || '-'}</td>
+                  <td>
+                    {m.ResultId ? (
+                      <button
+                        onClick={() => handleUpdateCardStatus(m.id, m.CardStatus || false)}
+                        disabled={updatingCardStatus === m.id}
+                        style={{
+                          padding: '6px 12px',
+                          borderRadius: '6px',
+                          border: 'none',
+                          cursor: updatingCardStatus === m.id ? 'not-allowed' : 'pointer',
+                          backgroundColor: m.CardStatus ? '#4CAF50' : '#f44336',
+                          color: 'white',
+                          fontWeight: 'bold',
+                          fontSize: '12px',
+                        }}
+                      >
+                        {updatingCardStatus === m.id ? 'Đang cập nhật...' : m.CardStatus ? 'Đã dùng' : 'Chưa dùng'}
+                      </button>
+                    ) : (
+                      <span style={{ color: '#999' }}>-</span>
+                    )}
+                  </td>
                   <td className={styles.taskDetailsCell}>
                     {m.taskDetails ? (
                       <div className={styles.taskInfo}>
