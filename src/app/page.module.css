@@ -3,122 +3,141 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  padding: 22px;
+  background: transparent;
 }
 
+/* CARD SUPER PREMIUM */
 .card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  padding: 40px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(2px);
+  border-radius: 28px;
+  padding: 45px 30px;
   width: 100%;
-  max-width: 400px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  max-width: 420px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.45);
+  z-index: 99999999;
+  /* Subtle hover glow (desktop only) */
+  transition: 0.35s ease;
 }
 
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+}
+
+/* TITLE */
 .title {
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   text-align: center;
-  margin-bottom: 10px;
-  background: linear-gradient(135deg, #fbbf24, #dc2626);
+  margin-bottom: 12px;
+  background: linear-gradient(135deg, var(--christmas-gold), var(--christmas-red));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text;
+
+  text-shadow: 0 0 25px rgba(255, 180, 0, 0.5);
 }
 
+/* SUBTITLE */
 .subtitle {
   text-align: center;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 30px;
-  font-size: 1.1rem;
+  color: rgba(255,255,255,0.85);
+  margin-bottom: 32px;
+  font-size: 1.15rem;
+  letter-spacing: 0.3px;
 }
 
+/* FORM */
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
-.inputGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
+/* LABEL */
 .inputGroup label {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.9);
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--christmas-gold);
+  text-shadow: 0 0 8px rgba(251,191,36,0.5);
 }
 
+/* INPUT */
 .input {
-  padding: 12px 16px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.1);
+  padding: 14px 16px;
+  border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.07);
   color: #fff;
-  font-size: 2.5rem;
-  transition: all 0.3s;
+  font-size: 2.6rem;
+  transition: 0.3s ease;
   text-align: center;
+  letter-spacing: 1px;
+  width: 100%;
 }
 
 .input:focus {
   outline: none;
-  border-color: #fbbf24;
-  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--christmas-gold);
+  background: rgba(255,255,255,0.12);
+  box-shadow: var(--christmas-glow);
 }
 
 .input::placeholder {
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255,255,255,0.45);
 }
 
-.input:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
+/* BUTTON */
 .button {
-  padding: 14px 24px;
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
-  color: white;
+  padding: 16px 26px;
+  background: linear-gradient(135deg, var(--christmas-red), #b91c1c);
+  color: #fff;
   border: none;
-  border-radius: 10px;
-  font-size: 1.1rem;
-  font-weight: 600;
+  border-radius: 14px;
+  font-size: 1.2rem;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s;
-  margin-top: 10px;
+  transition: 0.3s ease;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(255, 77, 77, 0.4);
 }
 
 .button:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+  box-shadow: 0 6px 22px rgba(255, 77, 77, 0.55);
 }
 
 .button:disabled {
-  opacity: 0.6;
+  opacity: 0.55;
   cursor: not-allowed;
 }
 
+/* ERROR BOX */
 .error {
   padding: 12px;
-  background: rgba(220, 38, 38, 0.2);
-  border: 1px solid rgba(220, 38, 38, 0.5);
-  border-radius: 8px;
-  color: #ff6b6b;
+  background: rgba(255, 60, 60, 0.18);
+  border: 1px solid rgba(255, 60, 60, 0.4);
+  border-radius: 12px;
+  color: #ff7b7b;
   text-align: center;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
+  backdrop-filter: blur(8px);
 }
 
+/* MOBILE FIX */
 @media (max-width: 768px) {
   .card {
-    padding: 30px 20px;
+    padding: 34px 22px;
   }
-
   .title {
-    font-size: 2rem;
+    font-size: 2.2rem;
   }
 }
 
+.wrapperTitle {
+  display: flex;
+  font-size: 2.2rem;
+  text-align: center;
+  justify-content: center;
+}

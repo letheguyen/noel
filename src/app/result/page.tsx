@@ -65,9 +65,9 @@ export default function ResultPage() {
   const getCardAbility = (cardType?: CardType): string => {
     switch (cardType) {
       case CardType.RED:
-        return '🔴 RED: Bạn có thể mở/xem phần thưởng của mình và trao đổi quà với người khác';
+        return '🔴 RED: Có thể mở xem quà của mình mà không cần chờ tới khi chương trình kết thúc, có thể đổi quà của mình với bất kỳ ai ngay cả khi đã mở xem quà';
       case CardType.BLUE:
-        return '🔵 BLUE: Bạn có thể yêu cầu người khác mở quà của họ và trao đổi quà của mình';
+        return '🔵 BLUE: Có thể yêu cầu người khác mở quà và có thể đổi quà của mình với quà của người đó';
       case CardType.WHITE:
         return '⚪ WHITE: Bạn có thể chặn 1 tấn công/hành động từ RED/BLUE';
       default:
@@ -86,7 +86,7 @@ export default function ResultPage() {
   return (
     <div className={styles.container}>
       <div className={styles.card}>
-        <h1 className={styles.title}>🎁 Phần Thưởng Của Bạn</h1>
+        <h1 className={styles.title}>Phần Thưởng Của Bạn</h1>
 
         {error && <div className={styles.error}>{error}</div>}
 
@@ -101,10 +101,7 @@ export default function ResultPage() {
 
             {member.CardType && (
               <div className={styles.cardInfo}>
-                <h3 className={styles.cardTitle}>Loại Thẻ Của Bạn</h3>
-                <div className={`${styles.cardType} ${styles[member.CardType.toLowerCase()]}`}>
-                  {member.CardType}
-                </div>
+                <h3 className={styles.cardTitle}>Bạn Nhận Được 1 Đặc Quyền</h3>
                 <p className={styles.cardAbility}>
                   {getCardAbility(member.CardType)}
                 </p>

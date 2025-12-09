@@ -121,6 +121,7 @@
   width: 100%;
   border-collapse: collapse;
   color: white;
+  min-width: 1200px;
 }
 
 .table thead {
